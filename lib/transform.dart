@@ -1,19 +1,42 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-class MyTranform extends StatefulWidget {
-  const MyTranform({super.key});
+class MyTransform extends StatefulWidget {
+  const MyTransform({super.key, required this.title});
+
+  final String title;
 
   @override
-  State<MyTranform> createState() => _MyTranformState();
+  State<MyTransform> createState() => _MyTransformState();
 }
 
-class _MyTranformState extends State<MyTranform> {
+class _MyTransformState extends State<MyTransform> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Transform.rotate(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            Transform.rotate(
                 angle: -45 * (pi / 180.0),
                 child: ElevatedButton(
                   child: const Text("Rotated button"),
@@ -80,7 +103,14 @@ class _MyTranformState extends State<MyTranform> {
                 onPressed: () {},
               ),
             )
-      ],
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
